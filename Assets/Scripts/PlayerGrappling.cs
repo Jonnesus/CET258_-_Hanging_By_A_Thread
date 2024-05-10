@@ -8,7 +8,6 @@ public class PlayerGrappling : MonoBehaviour
     [SerializeField] private Transform gunTip;
     [SerializeField] private LayerMask grappleSurface;
     [SerializeField] private LineRenderer lineRenderer;
-    [SerializeField] private PlayerSwinging playerSwinging;
 
     private PlayerMovement playerMovement;
 
@@ -49,9 +48,6 @@ public class PlayerGrappling : MonoBehaviour
             StartGrapple();
 
         CheckForGrapplePoints();
-
-/*        if (!playerMovement.grounded)
-            predictionPoint.gameObject.SetActive(false);*/
 
         // Cooldown timer for grappling
         if (grappleCooldownTimer > 0)
