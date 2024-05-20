@@ -21,8 +21,11 @@ public class PlayerGrappling : MonoBehaviour
 
     [Header("Cooldown")]
     [SerializeField] private float grappleCooldown;
+    [SerializeField] private int grappleLimitMax;
+    [SerializeField] private LayerMask ground;
 
     private float grappleCooldownTimer;
+    private int grappleLimit;
 
     [Header("Prediction")]
     [SerializeField] private RaycastHit predictionHit;
@@ -52,6 +55,10 @@ public class PlayerGrappling : MonoBehaviour
         // Cooldown timer for grappling
         if (grappleCooldownTimer > 0)
             grappleCooldownTimer -= Time.deltaTime;
+
+        if (playerMovement.grounded)
+            grappleLimit = grappleLimitMax;
+
     }
 
     private void LateUpdate()
@@ -110,12 +117,16 @@ public class PlayerGrappling : MonoBehaviour
 
     private void StartGrapple()
     {
+        // Return if cooldown timer is active
         if (grappleCooldownTimer > 0) return;
         // Return if predictionHit not found
         if (predictionHit.point == Vector3.zero) return;
+        // Return if grappleLimit <= 0
+        if (grappleLimit <= 0) return; 
 
         grappling = true;
         playerMovement.freeze = true;
+        grappleLimit -= 1;
 
         grapplePoint = predictionHit.point;
         Invoke(nameof(ExecuteGrapple), grappleDelayTime);

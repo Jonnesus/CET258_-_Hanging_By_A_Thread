@@ -123,8 +123,7 @@ public class PlayerMovement : MonoBehaviour
         float difference = Mathf.Abs(desiredMoveSpeed - moveSpeed);
         float startValue = moveSpeed;
 
-        // Gradually changes moveSpeed to desiredMoveSpeed, e.g. sliding down slope to walking speed decreases gradually instead of instant change
-        // Velocity increases quicker at greater slope angle
+        // Gradually changes moveSpeed to desiredMoveSpeed
         while (time < difference)
         {
             moveSpeed = Mathf.Lerp(startValue, desiredMoveSpeed, time / difference);
