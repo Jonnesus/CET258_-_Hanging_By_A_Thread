@@ -3,26 +3,34 @@ using UnityEngine;
 
 public class CountdownTimer : MonoBehaviour
 {
+    public bool gameEnded = false;
+
     [HideInInspector] public double currentTime;
 
     [SerializeField] private double startingTime;
     [SerializeField] private TextMeshProUGUI countdownText;
-    [SerializeField] private GameObject noTimePanel;
+    [SerializeField] private SceneTransitionManager sceneTransitionManager;
 
-    void Start()
+    private void Start()
     {
         currentTime = startingTime;
     }
 
-    void Update()
+    private void Update()
+    {
+        if (!gameEnded)
+            Countdown();
+    }
+
+    private void Countdown()
     {
         currentTime -= Time.deltaTime;
-        countdownText.text = currentTime.ToString("00.00");
+        countdownText.text = "Time Remaining: " + currentTime.ToString("00.00");
 
         if (currentTime <= 0)
         {
-            Time.timeScale = 0f;
-            noTimePanel.SetActive(true);
+            gameEnded = true;
+            sceneTransitionManager.GoToSceneAsync(1);
         }
     }
 }

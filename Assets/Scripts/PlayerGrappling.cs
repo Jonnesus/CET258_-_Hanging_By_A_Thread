@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -20,12 +21,14 @@ public class PlayerGrappling : MonoBehaviour
     private Vector3 grapplePoint;
 
     [Header("Cooldown")]
+    [HideInInspector] public int grappleLimit;
+
     [SerializeField] private float grappleCooldown;
     [SerializeField] private int grappleLimitMax;
     [SerializeField] private LayerMask ground;
+    [SerializeField] private TextMeshProUGUI grappleLimitText;
 
     private float grappleCooldownTimer;
-    private int grappleLimit;
 
     [Header("Prediction")]
     [SerializeField] private RaycastHit predictionHit;
@@ -51,6 +54,7 @@ public class PlayerGrappling : MonoBehaviour
             StartGrapple();
 
         CheckForGrapplePoints();
+        UpdateGrappleText();
 
         // Cooldown timer for grappling
         if (grappleCooldownTimer > 0)
@@ -122,7 +126,7 @@ public class PlayerGrappling : MonoBehaviour
         // Return if predictionHit not found
         if (predictionHit.point == Vector3.zero) return;
         // Return if grappleLimit <= 0
-        if (grappleLimit <= 0) return; 
+        if (grappleLimit <= 0) return;
 
         grappling = true;
         playerMovement.freeze = true;
@@ -172,5 +176,10 @@ public class PlayerGrappling : MonoBehaviour
     public Vector3 GetGrapplePoint()
     {
         return grapplePoint;
+    }
+
+    private void UpdateGrappleText()
+    {
+        grappleLimitText.text = "Grapples: " + grappleLimit;
     }
 }
