@@ -5,6 +5,8 @@ public class OpenInnerAirlockDoor : MonoBehaviour
 {
     [SerializeField] private Animator animatorOuterAirlock;
     [SerializeField] private Animator animatorInnerAirlock;
+    [SerializeField] private AudioSource outerDoorAudio;
+    [SerializeField] private AudioSource innerDoorAudio;
     [SerializeField] private string boolNameAirlock = "airlockOpen";
 
     private void Start()
@@ -17,5 +19,7 @@ public class OpenInnerAirlockDoor : MonoBehaviour
         bool isOpen = animatorOuterAirlock.GetBool(boolNameAirlock);
         animatorOuterAirlock.SetBool(boolNameAirlock, !isOpen);
         animatorInnerAirlock.SetBool(boolNameAirlock, isOpen);
+        outerDoorAudio.Play();
+        innerDoorAudio.Play();
     }
 }

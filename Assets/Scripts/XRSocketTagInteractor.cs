@@ -6,11 +6,11 @@ public class XRSocketTagInteractor : XRSocketInteractor
 
     public override bool CanHover(IXRHoverInteractable interactable)
     {
-        return base.CanHover(interactable) && interactable.transform.CompareTag(targetTag);
+        return base.CanHover(interactable) && interactable.transform.tag == targetTag;
     }
 
     public override bool CanSelect(IXRSelectInteractable interactable)
     {
-        return base.CanSelect(interactable) && interactable.transform.CompareTag(targetTag);
+        return base.CanSelect(interactable) && interactable.transform.tag == targetTag;
     }
 }

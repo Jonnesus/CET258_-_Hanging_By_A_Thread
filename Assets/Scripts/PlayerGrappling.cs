@@ -130,7 +130,7 @@ public class PlayerGrappling : MonoBehaviour
 
         grappling = true;
         playerMovement.freeze = true;
-        grappleLimit -= 1;
+        //grappleLimit -= 1;
 
         grapplePoint = predictionHit.point;
         Invoke(nameof(ExecuteGrapple), grappleDelayTime);

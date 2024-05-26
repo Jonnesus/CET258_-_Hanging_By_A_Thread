@@ -3,6 +3,7 @@ using UnityEngine;
 public class OpenEnergyDoor : MonoBehaviour
 {
     [SerializeField] private Animator animatorEnergy;
+    [SerializeField] private AudioSource doorAudio;
     [SerializeField] private string boolNameEnergy = "cubeInPlace";
 
     private void Start()
@@ -14,5 +15,6 @@ public class OpenEnergyDoor : MonoBehaviour
     {
         bool isOpen = animatorEnergy.GetBool(boolNameEnergy);
         animatorEnergy.SetBool(boolNameEnergy, !isOpen);
+        doorAudio.Play();
     }   
 }
